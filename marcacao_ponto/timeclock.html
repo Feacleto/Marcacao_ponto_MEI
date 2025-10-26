@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcação de Ponto - Sistema de Marcação de Ponto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">⏱️ TimeTrack</div>
+            <div class="user-menu">
+                <span id="userNameDisplay"></span>
+                <button class="btn-small" onclick="handleLogout()">Sair</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <div class="container">
+            <h1>Marcação de Ponto</h1>
+            
+            <!-- User Info -->
+            <div class="info-box">
+                <p><strong>Nome:</strong> <span id="userNameInfo"></span></p>
+                <p><strong>Empresa:</strong> <span id="userCompanyInfo"></span></p>
+                <p><strong>Data:</strong> <span id="currentDate"></span></p>
+                <p><strong>Hora:</strong> <span id="currentTime"></span></p>
+            </div>
+
+            <!-- Time Records -->
+            <div class="records-section">
+                <h2>Registros do Dia</h2>
+                <div class="records-grid">
+                    <div class="record-card">
+                        <p class="label">Entrada</p>
+                        <p class="time" id="entradaTime">--:--</p>
+                        <button class="btn-success" id="entradaBtn" onclick="recordTime('entrada')">Registrar Entrada</button>
+                    </div>
+                    <div class="record-card">
+                        <p class="label">Entrada Almoço</p>
+                        <p class="time" id="entradaAlmocoTime">--:--</p>
+                        <button class="btn-success" id="entradaAlmocoBtn" onclick="recordTime('entrada_almoco')">Entrada Almoço</button>
+                    </div>
+                    <div class="record-card">
+                        <p class="label">Saída Almoço</p>
+                        <p class="time" id="saidaAlmocoTime">--:--</p>
+                        <button class="btn-success" id="saidaAlmocoBtn" onclick="recordTime('saida_almoco')">Saída Almoço</button>
+                    </div>
+                    <div class="record-card">
+                        <p class="label">Saída</p>
+                        <p class="time" id="saidaTime">--:--</p>
+                        <button class="btn-danger" id="saidaBtn" onclick="recordTime('saida')">Registrar Saída</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div class="validation-section">
+                <h3>📍 Localização</h3>
+                <div id="locationInfo" class="info-box">
+                    <p>Aguardando localização...</p>
+                </div>
+                <button class="btn-secondary" onclick="getLocation()">Obter Localização</button>
+            </div>
+
+            <!-- Camera Section -->
+            <div class="validation-section">
+                <h3>📸 Foto</h3>
+                <div id="cameraContainer">
+                    <video id="cameraPreview" style="display: none; width: 100%; max-width: 400px; border-radius: 8px; margin-bottom: 1rem;"></video>
+                    <canvas id="photoCanvas" style="display: none;"></canvas>
+                    <img id="photoPreview" style="display: none; width: 100%; max-width: 400px; border-radius: 8px; margin-bottom: 1rem;">
+                </div>
+                <div class="button-group">
+                    <button class="btn-secondary" id="startCameraBtn" onclick="startCamera()">Abrir Câmera</button>
+                    <button class="btn-secondary hidden" id="takPhotoBtn" onclick="takePhoto()">Tirar Foto</button>
+                    <button class="btn-secondary hidden" id="retakePhotoBtn" onclick="retakePhoto()">Tirar Novamente</button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="button-group">
+                <a href="reports.html" class="btn-primary">Ver Relatórios</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TimeTrack. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Verificar se usuário está logado
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        } else {
+            loadTimeClock();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Marcação de Ponto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">⏱️ TimeTrack</div>
+            <a href="home.html" class="btn-small">Voltar</a>
+        </nav>
+    </header>
+
+    <main class="form-page">
+        <div class="form-container">
+            <h1>Fazer Login</h1>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email Corporativo</label>
+                    <input type="email" id="loginEmail" placeholder="seu.email@empresa.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                </div>
+                <div id="loginError" class="error-message"></div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            <p class="form-footer">
+                Não tem uma conta? <a href="register.html">Cadastre-se aqui</a>
+            </p>
+            <p class="form-footer">
+                <a href="forgot-password.html">Esqueci minha senha</a>
+            </p>
+            <div class="demo-info">
+                <strong>Demo:</strong> Email: joao.silva@empresa.com | Senha: senha123
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TimeTrack. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
