@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Marcação de Ponto</title>
+    <title>Login - TimeTrack</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,27 +16,36 @@
 
     <main class="form-page">
         <div class="form-container">
-            <h1>Fazer Login</h1>
+            <h1>Bem-vindo de volta!</h1>
+            <p class="text-center" style="margin-bottom: 1.5rem; color: var(--secondary);">
+                Entre com suas credenciais para acessar o sistema
+            </p>
+
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Email Corporativo</label>
                     <input type="email" id="loginEmail" placeholder="seu.email@empresa.com" required>
                 </div>
+                
                 <div class="form-group">
                     <label>Senha</label>
                     <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
                 </div>
+                
                 <div id="loginError" class="error-message"></div>
+                
                 <button type="submit" class="btn-primary">Entrar</button>
             </form>
-            <p class="form-footer">
-                Não tem uma conta? <a href="register.html">Cadastre-se aqui</a>
-            </p>
-            <p class="form-footer">
+
+            <div class="button-group" style="margin-top: 1.5rem; justify-content: space-between; font-size: 0.9rem;">
+                <a href="register.html">Criar nova conta</a>
                 <a href="forgot-password.html">Esqueci minha senha</a>
-            </p>
+            </div>
+
             <div class="demo-info">
-                <strong>Demo:</strong> Email: joao.silva@empresa.com | Senha: senha123
+                <strong>💡 Acesso Demo:</strong><br>
+                Email: joao.silva@empresa.com<br>
+                Senha: senha123
             </div>
         </div>
     </main>

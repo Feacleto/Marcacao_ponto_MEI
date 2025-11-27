@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Marcação de Ponto - Home</title>
+    <title>TimeTrack - Sistema de Marcação de Ponto</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,65 +24,71 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <h1>Sistema de Marcação de Ponto</h1>
-            <p>Controle suas horas de trabalho de forma simples e intuitiva</p>
-            <div class="button-group">
-                <a href="login.html" class="btn-primary">Fazer Login</a>
-                <a href="register.html" class="btn-secondary">Cadastrar</a>
+            <h1>Controle de Ponto Simplificado para MEI</h1>
+            <p>Gerencie suas horas de trabalho, intervalos e relatórios de forma simples, intuitiva e gratuita.</p>
+            <div class="button-group" style="justify-content: center;">
+                <a href="login.html" class="btn-primary" style="max-width: 200px;">Fazer Login</a>
+                <a href="register.html" class="btn-secondary" style="max-width: 200px;">Criar Conta Grátis</a>
             </div>
         </section>
 
         <!-- Features Section -->
         <section class="features" id="features">
-            <h2>Funcionalidades Principais</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>📍 Geolocalização</h3>
-                    <p>Registre sua localização no momento da marcação de ponto</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📸 Captura de Foto</h3>
-                    <p>Tire uma foto para validar seu registro</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Relatórios</h3>
-                    <p>Gere relatórios mensais com cálculo de horas</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⏱️ Controle de Horas</h3>
-                    <p>Registre entrada, saída e intervalos</p>
+            <div class="container">
+                <h2 class="text-center">Funcionalidades Principais</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📍 Geolocalização</h3>
+                        <p>Registre automaticamente sua localização exata no momento da marcação de ponto para maior segurança.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📸 Validação por Foto</h3>
+                        <p>Use a câmera do seu dispositivo para tirar uma foto e validar quem está registrando o ponto.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Relatórios Mensais</h3>
+                        <p>Visualize seu histórico completo e gere relatórios de horas trabalhadas por período.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏱️ Controle Total</h3>
+                        <p>Registre entrada, intervalos de almoço e saída com apenas um clique.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Companies Section -->
         <section class="companies">
-            <h2>Empresas que Confiam em Nós</h2>
-            <div class="company-grid">
-                <div class="company-card">Tech Solutions</div>
-                <div class="company-card">Inovação Digital</div>
-                <div class="company-card">Global Services</div>
-                <div class="company-card">Creative Agency</div>
+            <div class="container">
+                <h2 class="text-center">Quem usa o TimeTrack?</h2>
+                <div class="company-grid">
+                    <div class="company-card">Tech Solutions</div>
+                    <div class="company-card">Inovação Digital</div>
+                    <div class="company-card">Global Services</div>
+                    <div class="company-card">Creative Agency</div>
+                </div>
             </div>
         </section>
 
         <!-- About Section -->
         <section class="about" id="about">
-            <h2>Sobre Nós</h2>
-            <p>O Sistema de Marcação de Ponto foi desenvolvido para simplificar o controle de jornada de trabalho das empresas modernas. Com uma interface intuitiva e funcionalidades robustas, oferecemos uma solução completa para gestão de tempo.</p>
+            <div class="container">
+                <h2>Sobre Nós</h2>
+                <p>O TimeTrack foi desenvolvido pensando na realidade do Microempreendedor Individual (MEI). Sabemos que controlar a jornada de trabalho pode ser desafiador quando se trabalha por conta própria. Nossa missão é oferecer uma ferramenta robusta, porém simples, para que você foque no que realmente importa: seu negócio.</p>
+            </div>
         </section>
 
         <!-- Privacy Section -->
         <section class="privacy">
-            <div class="privacy-content">
+            <div class="container privacy-content">
                 <div>
-                    <h3>Política de Privacidade</h3>
-                    <p>Protegemos seus dados pessoais com as melhores práticas de segurança.</p>
+                    <h3>🔒 Privacidade e Segurança</h3>
+                    <p>Seus dados são armazenados localmente no seu dispositivo. Respeitamos sua privacidade e não compartilhamos suas informações.</p>
                 </div>
                 <div>
-                    <h3>Cookies</h3>
-                    <p>Usamos cookies para melhorar sua experiência.</p>
-                    <button class="btn-primary" onclick="acceptCookies()">Aceitar Cookies</button>
+                    <h3>🍪 Uso de Cookies</h3>
+                    <p>Utilizamos cookies apenas para melhorar sua experiência de navegação e manter sua sessão ativa.</p>
+                    <button class="btn-primary" onclick="acceptCookies()" style="margin-top: 1rem;">Entendi e Aceito</button>
                 </div>
             </div>
         </section>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema de Marcação de Ponto</title>
+    <title>Cadastro - TimeTrack</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,28 +16,61 @@
 
     <main class="form-page">
         <div class="form-container">
-            <h1>Fazer Login</h1>
-            <form onsubmit="handleLogin(event)">
+            <h1>Criar Nova Conta</h1>
+            <p class="text-center" style="margin-bottom: 1.5rem; color: var(--secondary);">
+                Preencha os dados abaixo para começar
+            </p>
+
+            <form onsubmit="handleRegister(event)" id="registerForm">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="registerName" placeholder="Seu nome" required>
+                </div>
+
                 <div class="form-group">
                     <label>Email Corporativo</label>
-                    <input type="email" id="loginEmail" placeholder="seu.email@empresa.com" required>
+                    <input type="email" id="registerEmail" placeholder="seu.email@empresa.com" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                    <label>Nome da Empresa</label>
+                    <input type="text" id="registerCompany" placeholder="Nome da sua empresa" required>
                 </div>
-                <div id="loginError" class="error-message"></div>
-                <button type="submit" class="btn-primary">Entrar</button>
+
+                <!-- NOVOS CAMPOS DE ENDEREÇO -->
+                <div class="form-group">
+                    <label>CEP</label>
+                    <!-- onblur chama a função quando o usuário clica fora do campo -->
+                    <input type="text" id="registerCep" placeholder="00000-000" maxlength="9" onblur="searchCep(this.value)" required>
+                    <small id="cepLoading" style="display:none; color: var(--primary); margin-top: 5px; font-size: 0.85rem;">Buscando endereço...</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Endereço</label>
+                    <input type="text" id="registerAddress" placeholder="Rua, Avenida..." readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+                </div>
+
+                <div class="button-group" style="margin-bottom: 1.5rem; margin-top: 0; gap: 1rem;">
+                    <div class="form-group" style="margin-bottom: 0; flex: 1;">
+                        <label>Bairro</label>
+                        <input type="text" id="registerNeighborhood" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0; flex: 1;">
+                        <label>Cidade/UF</label>
+                        <input type="text" id="registerCity" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+                    </div>
+                </div>
+                <!-- FIM DOS NOVOS CAMPOS -->
+
+                <div id="registerError" class="error-message"></div>
+                <div id="registerSuccess" class="success-message"></div>
+
+                <button type="submit" class="btn-primary">Cadastrar</button>
             </form>
+
             <p class="form-footer">
-                Não tem uma conta? <a href="register.html">Cadastre-se aqui</a>
+                Já tem uma conta? <a href="login.html">Fazer Login</a>
             </p>
-            <p class="form-footer">
-                <a href="forgot-password.html">Esqueci minha senha</a>
-            </p>
-            <div class="demo-info">
-                <strong>Demo:</strong> Email: joao.silva@empresa.com | Senha: senha123
-            </div>
         </div>
     </main>
 

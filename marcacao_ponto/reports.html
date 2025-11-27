@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - TimeTrack</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">⏱️ TimeTrack</div>
+            <div class="user-menu">
+                <span id="userNameDisplay2">Usuário</span>
+                <a href="timeclock.html" class="btn-small">Voltar para o Ponto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <div class="container">
+            <h1>Histórico de Pontos</h1>
+
+            <!-- Filtros -->
+            <div class="filter-section">
+                <h3>📅 Filtrar Período</h3>
+                <div class="filter-group">
+                    <div>
+                        <label>Mês</label>
+                        <select id="monthFilter" onchange="filterRecords()">
+                            <option value="1">Janeiro</option>
+                            <option value="2">Fevereiro</option>
+                            <option value="3">Março</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Maio</option>
+                            <option value="6">Junho</option>
+                            <option value="7">Julho</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Ano</label>
+                        <select id="yearFilter" onchange="filterRecords()">
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumo do Mês -->
+            <div class="summary-section">
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <p class="label">Dias Trabalhados</p>
+                        <p class="value" id="totalDays">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="label">Total de Horas</p>
+                        <p class="value" id="totalHours">0h</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Registros -->
+            <div class="table-section">
+                <div class="table-wrapper">
+                    <table class="records-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Entrada</th>
+                                <th>Saída Almoço</th>
+                                <th>Volta Almoço</th>
+                                <th>Saída</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordsTableBody">
+                            <!-- Preenchido via JavaScript -->
+                            <tr>
+                                <td colspan="6" class="text-center">Carregando registros...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Exportação -->
+            <div class="export-section text-center">
+                <button class="btn-secondary" onclick="exportCSV()">📄 Baixar Relatório (CSV)</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TimeTrack. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Funções específicas desta página (já que o script.js é genérico)
+        function filterRecords() {
+            if (!currentUser) return;
+
+            const month = parseInt(document.getElementById('monthFilter').value);
+            const year = parseInt(document.getElementById('yearFilter').value);
+
+            const records = getUserRecords(currentUser.id);
+            
+            // Filtra registros do mês/ano selecionado
+            const filteredRecords = records.filter(r => {
+                const recordDate = new Date(r.timestamp);
+                return recordDate.getFullYear() === year && recordDate.getMonth() === month - 1;
+            });
+
+            // Agrupa por dia (DD/MM/AAAA)
+            const recordsByDate = {};
+            filteredRecords.forEach(record => {
+                const date = new Date(record.timestamp).toLocaleDateString('pt-BR');
+                if (!recordsByDate[date]) {
+                    recordsByDate[date] = {};
+                }
+                recordsByDate[date][record.type] = record.time;
+            });
+
+            // Renderiza Tabela
+            const tbody = document.getElementById('recordsTableBody');
+            const dates = Object.keys(recordsByDate).sort();
+            
+            let totalHoursMonth = 0;
+
+            if (dates.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="padding: 2rem;">Nenhum registro encontrado neste período.</td></tr>';
+                document.getElementById('totalDays').textContent = '0';
+                document.getElementById('totalHours').textContent = '0h';
+                return;
+            }
+
+            tbody.innerHTML = dates.map(date => {
+                const day = recordsByDate[date];
+                const hours = calculateDailyHours(day);
+                totalHoursMonth += hours;
+
+                return `
+                    <tr>
+                        <td><strong>${date}</strong></td>
+                        <td>${day.entrada || '--:--'}</td>
+                        <td>${day.entrada_almoco || '--:--'}</td>
+                        <td>${day.saida_almoco || '--:--'}</td>
+                        <td>${day.saida || '--:--'}</td>
+                        <td><strong>${hours.toFixed(2)}h</strong></td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Atualiza Resumo
+            document.getElementById('totalDays').textContent = dates.length;
+            document.getElementById('totalHours').textContent = totalHoursMonth.toFixed(2) + 'h';
+        }
+
+        function calculateDailyHours(day) {
+            // Converte hora "HH:MM" para minutos
+            const toMin = (t) => {
+                if(!t) return 0;
+                const [h, m] = t.split(':').map(Number);
+                return h * 60 + m;
+            };
+
+            const ent = toMin(day.entrada);
+            const sai = toMin(day.saida);
+            const entAlm = toMin(day.entrada_almoco);
+            const saiAlm = toMin(day.saida_almoco);
+
+            if (!ent || !sai) return 0;
+
+            let totalMinutes = sai - ent;
+            
+            // Desconta o almoço se houver registro completo
+            if (entAlm && saiAlm) {
+                totalMinutes -= (saiAlm - entAlm);
+            }
+
+            return totalMinutes > 0 ? totalMinutes / 60 : 0;
+        }
+
+        function exportCSV() {
+            alert("Funcionalidade de exportação simulada! (Seria baixado um arquivo .csv aqui)");
+        }
+    </script>
+</body>
+</html>
